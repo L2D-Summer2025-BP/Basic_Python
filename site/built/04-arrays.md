@@ -1890,7 +1890,7 @@ print("Type:", type(table_rev))
 ```
 
 ``` output
-Result: <list_reverseiterator object at 0x10b77ef80>
+Result: <list_reverseiterator object at 0x11d304370>
 Type: <class 'list_reverseiterator'>
 ```
 
@@ -2799,7 +2799,7 @@ print(unique_samples)
 ```
 
 ``` output
-{'sample2', 'sampleC', 'sample3', 'sample1'}
+{'sample3', 'sample2', 'sampleC', 'sample1'}
 ```
 
 Let's create a set from a list, as follows:
@@ -2812,7 +2812,7 @@ print(unique_samples)
 ```
 
 ``` output
-{'1', 1, 2, 5}
+{1, 2, 5, '1'}
 ```
 
 ``` python
@@ -2865,7 +2865,7 @@ print("After adding geneD:", gene_set)
 ```
 
 ``` output
-After adding geneD: {'geneC', 'geneA', 'geneD', 'geneB'}
+After adding geneD: {'geneB', 'geneC', 'geneA', 'geneD'}
 ```
 
 If you attempt to add a duplicate, this will be ignored:
@@ -2877,7 +2877,7 @@ print("After attempting to add geneA again:", gene_set)
 ```
 
 ``` output
-After attempting to add geneA again: {'geneC', 'geneA', 'geneD', 'geneB'}
+After attempting to add geneA again: {'geneB', 'geneC', 'geneA', 'geneD'}
 ```
 
 
@@ -2912,7 +2912,7 @@ print("All genes found:", all_found_genes)
 ```
 
 ``` output
-All genes found: {'BRCA1', 'VEGFA', 'AKT1', 'TP53', 'MAPK1', 'KRAS', 'MYC'}
+All genes found: {'MYC', 'BRCA1', 'KRAS', 'VEGFA', 'AKT1', 'TP53', 'MAPK1'}
 ```
 
 Intersection - genes found in both experiments:
@@ -2923,7 +2923,7 @@ print("Common genes:", common_genes)
 ```
 
 ``` output
-Common genes: {'TP53', 'KRAS', 'MYC'}
+Common genes: {'TP53', 'MYC', 'KRAS'}
 ```
 
 Symmetric difference - genes found in only one of the experiments:
@@ -2934,7 +2934,7 @@ print("Genes found exclusively in one experiment:", exclusive_genes)
 ```
 
 ``` output
-Genes found exclusively in one experiment: {'BRCA1', 'MAPK1', 'VEGFA', 'AKT1'}
+Genes found exclusively in one experiment: {'BRCA1', 'AKT1', 'MAPK1', 'VEGFA'}
 ```
 
 Difference - genes unique to the first experiment:
@@ -2945,7 +2945,7 @@ print("Unique to Experiment 1:", unique_to_exp1)
 ```
 
 ``` output
-Unique to Experiment 1: {'BRCA1', 'AKT1'}
+Unique to Experiment 1: {'AKT1', 'BRCA1'}
 ```
 
 
