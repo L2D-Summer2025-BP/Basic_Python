@@ -2251,16 +2251,64 @@ unique_to_exp1 = experiment1_genes.difference(experiment2_genes)
 print("Unique to Experiment 1:", unique_to_exp1)
 ```
 
+::::::::::::::::::::::::::::::: challenge
+## Practise Exercise 17
 
+You have identified a list of potential drug targets from two different experimental screens for a specific disease.
+
+However, there might be some redundancy between the lists, and you want to consolidate them and identify unique targets.
+
+Given the following two lists of gene names (strings):
+
+```{python}
+screen_A_targets = ['geneX', 'geneY', 'geneZ', 'geneM', 'geneP', 'geneX']
+screen_B_targets = ['geneZ', 'geneQ', 'geneR', 'geneM', 'geneS', 'geneT']
+```
+
+1. Convert screen_A_targets and screen_B_targets into sets to automatically remove any duplicate gene names within each screen.
+
+2. Find all the unique gene targets identified across both screens (i.e., genes that appear in either screen A or screen B, with no duplicates). Store this result in a variable called all_distinct_targets.
+
+3. Find the gene targets that were identified by both screens (i.e., genes that appear in both screen A and screen B). Store this result in a variable called common_targets.
+
+4. Display the contents of all_distinct_targets and common_targets.
+
+::::::::::::::::: solution
+
+1.
+```
+screen_A_targets = ['geneX', 'geneY', 'geneZ', 'geneM', 'geneP', 'geneX'] screen_B_targets = ['geneZ', 'geneQ', 'geneR', 'geneM', 'geneS', 'geneT']
+
+set_A = set(screen_A_targets) set_B = set(screen_B_targets)
+```
+
+2. 
+```
+all_distinct_targets = set_A.union(set_B)
+```
+
+3.
+```
+common_targets = set_A.intersection(set_B)
+```
+
+4.
+```
+print(f"All distinct targets: {all_distinct_targets}") print(f"Common targets: {common_targets}")
+```
+
+:::::::::::::::::
+
+:::::::::::::::::::::::::::::::
 ### Summary:
 
 In this section, we’ve introduced the set — an unordered Python collection that stores only unique elements.
 
 Key takeaways:
-- Sets do not preserve order and cannot be indexed or sliced.
-- They automatically remove duplicates from input sequences.
-- Sets are especially useful when the presence or absence of an item matters more than its position.
-- Their support for mathematical operations makes them ideal for comparing datasets — for example, identifying overlapping or exclusive values between gene lists.
+\- Sets do not preserve order and cannot be indexed or sliced.
+\- They automatically remove duplicates from input sequences.
+\- Sets are especially useful when the presence or absence of an item matters more than its position.
+\- Their support for mathematical operations makes them ideal for comparing datasets — for example, identifying overlapping or exclusive values between gene lists.
 
 :::::::::::::::::::::::::::::::::::: callout
 ## Interesting Fact

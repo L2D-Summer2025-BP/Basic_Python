@@ -1890,7 +1890,7 @@ print("Type:", type(table_rev))
 ```
 
 ``` output
-Result: <list_reverseiterator object at 0x11d304370>
+Result: <list_reverseiterator object at 0x12bae81c0>
 Type: <class 'list_reverseiterator'>
 ```
 
@@ -2799,7 +2799,7 @@ print(unique_samples)
 ```
 
 ``` output
-{'sample3', 'sample2', 'sampleC', 'sample1'}
+{'sample2', 'sample1', 'sample3', 'sampleC'}
 ```
 
 Let's create a set from a list, as follows:
@@ -2812,7 +2812,7 @@ print(unique_samples)
 ```
 
 ``` output
-{1, 2, 5, '1'}
+{1, '1', 2, 5}
 ```
 
 ``` python
@@ -2865,7 +2865,7 @@ print("After adding geneD:", gene_set)
 ```
 
 ``` output
-After adding geneD: {'geneB', 'geneC', 'geneA', 'geneD'}
+After adding geneD: {'geneC', 'geneA', 'geneB', 'geneD'}
 ```
 
 If you attempt to add a duplicate, this will be ignored:
@@ -2877,7 +2877,7 @@ print("After attempting to add geneA again:", gene_set)
 ```
 
 ``` output
-After attempting to add geneA again: {'geneB', 'geneC', 'geneA', 'geneD'}
+After attempting to add geneA again: {'geneC', 'geneA', 'geneB', 'geneD'}
 ```
 
 
@@ -2912,7 +2912,7 @@ print("All genes found:", all_found_genes)
 ```
 
 ``` output
-All genes found: {'MYC', 'BRCA1', 'KRAS', 'VEGFA', 'AKT1', 'TP53', 'MAPK1'}
+All genes found: {'MYC', 'BRCA1', 'AKT1', 'KRAS', 'MAPK1', 'TP53', 'VEGFA'}
 ```
 
 Intersection - genes found in both experiments:
@@ -2923,7 +2923,7 @@ print("Common genes:", common_genes)
 ```
 
 ``` output
-Common genes: {'TP53', 'MYC', 'KRAS'}
+Common genes: {'TP53', 'KRAS', 'MYC'}
 ```
 
 Symmetric difference - genes found in only one of the experiments:
@@ -2934,7 +2934,7 @@ print("Genes found exclusively in one experiment:", exclusive_genes)
 ```
 
 ``` output
-Genes found exclusively in one experiment: {'BRCA1', 'AKT1', 'MAPK1', 'VEGFA'}
+Genes found exclusively in one experiment: {'AKT1', 'MAPK1', 'VEGFA', 'BRCA1'}
 ```
 
 Difference - genes unique to the first experiment:
@@ -2948,16 +2948,65 @@ print("Unique to Experiment 1:", unique_to_exp1)
 Unique to Experiment 1: {'AKT1', 'BRCA1'}
 ```
 
+::::::::::::::::::::::::::::::: challenge
+## Practise Exercise 17
 
+You have identified a list of potential drug targets from two different experimental screens for a specific disease.
+
+However, there might be some redundancy between the lists, and you want to consolidate them and identify unique targets.
+
+Given the following two lists of gene names (strings):
+
+
+``` python
+screen_A_targets = ['geneX', 'geneY', 'geneZ', 'geneM', 'geneP', 'geneX']
+screen_B_targets = ['geneZ', 'geneQ', 'geneR', 'geneM', 'geneS', 'geneT']
+```
+
+1. Convert screen_A_targets and screen_B_targets into sets to automatically remove any duplicate gene names within each screen.
+
+2. Find all the unique gene targets identified across both screens (i.e., genes that appear in either screen A or screen B, with no duplicates). Store this result in a variable called all_distinct_targets.
+
+3. Find the gene targets that were identified by both screens (i.e., genes that appear in both screen A and screen B). Store this result in a variable called common_targets.
+
+4. Display the contents of all_distinct_targets and common_targets.
+
+::::::::::::::::: solution
+
+1.
+```
+screen_A_targets = ['geneX', 'geneY', 'geneZ', 'geneM', 'geneP', 'geneX'] screen_B_targets = ['geneZ', 'geneQ', 'geneR', 'geneM', 'geneS', 'geneT']
+
+set_A = set(screen_A_targets) set_B = set(screen_B_targets)
+```
+
+2. 
+```
+all_distinct_targets = set_A.union(set_B)
+```
+
+3.
+```
+common_targets = set_A.intersection(set_B)
+```
+
+4.
+```
+print(f"All distinct targets: {all_distinct_targets}") print(f"Common targets: {common_targets}")
+```
+
+:::::::::::::::::
+
+:::::::::::::::::::::::::::::::
 ### Summary:
 
 In this section, we’ve introduced the set — an unordered Python collection that stores only unique elements.
 
 Key takeaways:
-- Sets do not preserve order and cannot be indexed or sliced.
-- They automatically remove duplicates from input sequences.
-- Sets are especially useful when the presence or absence of an item matters more than its position.
-- Their support for mathematical operations makes them ideal for comparing datasets — for example, identifying overlapping or exclusive values between gene lists.
+\- Sets do not preserve order and cannot be indexed or sliced.
+\- They automatically remove duplicates from input sequences.
+\- Sets are especially useful when the presence or absence of an item matters more than its position.
+\- Their support for mathematical operations makes them ideal for comparing datasets — for example, identifying overlapping or exclusive values between gene lists.
 
 :::::::::::::::::::::::::::::::::::: callout
 ## Interesting Fact
