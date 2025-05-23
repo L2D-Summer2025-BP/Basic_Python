@@ -209,6 +209,18 @@
 </div>
 <!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush5">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading5">
+        <a href="04-arrays.html">4. Introduction to Arrays</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -353,6 +365,341 @@ of nucleotides, not the number of <code>CAG</code> codons. See task 4 of
 11</a> for additional information.
 </p>
 </div>
+<hr></section><section id="04-arrays"><h2 class="section-heading"><a href="04-arrays.html">Introduction to Arrays</a></h2>
+<hr class="half-width">
+<h3 id="04-arrays-figure-1">Figure 1</h3>
+<figure><img src="fig/spreadsheet.png" class="figure mx-auto d-block"></figure><hr>
+<h3 id="04-arrays-figure-2">Figure 2</h3>
+<div class="section level3">
+<h3 id="sec:list:indexing">
+<strong>Indexing</strong><a class="anchor" aria-label="anchor" href="#sec:list:indexing"></a>
+</h3>
+<p>In a list, an index is an integer (whole number) that corresponds to
+a specific item in that array.</p>
+<p style="text-align: justify;">
+You can think of an index as a <em>unique reference</em> or <em>key</em>
+that corresponds to a specific row in a table. We don’t always write the
+row number when we create a table. However, we always know that the
+third row of a table refers to us starting from the first row (row #1),
+counting three rows down and there we find the third row.
+</p>
+<p style="text-align: justify;">
+Python, however, uses what we term <strong>zero-based</strong> indexing.
+We don’t count the first row as row #1; instead, we consider it to be
+row #0. As a consequence of starting from #0, we count rows in our table
+down to row #2 instead of #3 to find the third row. So our table
+may,essentially, be visualised as follows:
+</p>
+<figure><img src="fig/indexing_diagram.png" class="figure mx-auto d-block"></figure><div id="remember-2" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="remember-2" class="callout-inner">
+<h3 class="callout-title">Remember</h3>
+<div class="callout-content">
+<p>Python uses <strong>zero-based</strong> indexing system. This means
+that the first row of an array, regardless of its type, is always
+referred to with index #0.</p>
+</div>
+</div>
+</div>
+<p>With that in mind, we can use the index for each item in the list, in
+order to retrieve it from a <code>list</code>.</p>
+<p>Given the following <code>list</code> of four members stored in a
+variable called <span style="color: rgb(32, 121, 77);">table</span>:</p>
+<pre><code>table = [5, 21, 5, -1]</code></pre>
+we can visualise the referencing protocol in Python as follows: <img src="fig/indexing_diagram2.png" class="figure"><p style="text-align: justify;">
+As illustrated in this figure; in order to retrieve a member of an array
+through its index, we write the name of the variable immediately
+followed by the index value inside a pair of square brackets —
+<em>e.g.</em> <span style="color: rgb(32, 121, 77);">table[2]</span>.
+Note, you may have noticed our interchangeable use of the terms ‘list’
+and ‘array’. That is because a list, in Python, can be considered as a
+type of dynamic array (they can increase or decrease in size, as
+required).
+</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="bu">print</span>(table[<span class="dv">2</span>])</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span><span class="fl">5</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="bu">print</span>(table[<span class="dv">0</span>])</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span><span class="fl">5</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>item <span class="op">=</span> table[<span class="dv">3</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="bu">print</span>(item)</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span><span class="op">-</span><span class="fl">1</span></span></code></pre>
+</div>
+<div id="practice-exercise-2" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="practice-exercise-2" class="callout-inner">
+<h3 class="callout-title">Practice Exercise 2</h3>
+<div class="callout-content">
+<p>Retrieve and display the 5<sup>th</sup> Fibonacci number from the
+<code>list</code> you created in the previous <a href="#diy:array:list:fibonacci">Practice Exercise 1</a>.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">
+  ANSWER
+  </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="bu">print</span>(fibonacci[<span class="dv">4</span>])</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span><span class="fl">5</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p style="text-align: justify;">
+It is sometimes more convenient to index an array, backwards — that is,
+to reference the members from the bottom, or end, of the array, first.
+This is termed <strong>negative indexing</strong>, and is particularly
+useful when we are dealing with lengthy arrays. The indexing system in
+Python support both positive and negative indexing systems.
+</p>
+<p>The table above therefore may also be represented, as follows:</p>
+<figure><img src="fig/indexing_diagram3.png" class="figure mx-auto d-block"></figure><div id="remember-3" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="remember-3" class="callout-inner">
+<h3 class="callout-title">Remember</h3>
+<div class="callout-content">
+<p>Unlike the normal indexing system, which starts from #0, negative
+indexes start from #-1. This serves to definitely highlight which
+indexing system is being used.</p>
+</div>
+</div>
+</div>
+<p>If the index is a negative number, the indices are counted from the
+end of the <code>list</code>. We can implement negative indices in the
+same way as positive indices:</p>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="bu">print</span>(table[<span class="op">-</span><span class="dv">1</span>])</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span><span class="op">-</span><span class="fl">1</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="bu">print</span>(table[<span class="op">-</span><span class="dv">2</span>])</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span><span class="fl">5</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="bu">print</span>(table[<span class="op">-</span><span class="dv">3</span>])</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span><span class="fl">21</span></span></code></pre>
+</div>
+<p>We know that in <span style="color: rgb(32, 121, 77);">table</span>,
+index #-3 refers the same value as index #1. So let us go ahead and test
+this:</p>
+<div class="codewrapper sourceCode" id="cb21">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>equivalence <span class="op">=</span> table[<span class="op">-</span><span class="dv">3</span>] <span class="op">==</span> table[<span class="dv">1</span>]</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="bu">print</span>(equivalence)</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span><span class="va">True</span></span></code></pre>
+</div>
+<p>If the index requested is larger than the length of the
+<code>list</code> minus one, an <code>IndexError</code> will be
+raised:</p>
+<div class="codewrapper sourceCode" id="cb23">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="bu">print</span>(table[<span class="dv">4</span>])</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>IndexError: list index out of range</code></pre>
+</div>
+<div id="remember-4" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="remember-4" class="callout-inner">
+<h3 class="callout-title">Remember</h3>
+<div class="callout-content">
+<p>The values stored in a <code>list</code> may be referred to as the
+<strong>members</strong> of that <code>list</code>.</p>
+</div>
+</div>
+</div>
+<div id="practice-exercise-3" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="practice-exercise-3" class="callout-inner">
+<h3 class="callout-title">Practice Exercise 3</h3>
+<div class="callout-content">
+<p>Retrieve and display the <em>last</em> Fibonacci number from the
+<code>list</code> you created in <a href="#diy:array:list:fibonacci">Practice Exercise 1</a>.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3">
+  ANSWER
+  </h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb25">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="bu">print</span>(fibonacci[<span class="op">-</span><span class="dv">1</span>])</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span><span class="fl">21</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<h3 id="04-arrays-figure-3">Figure 3</h3>
+<figure><img src="fig/indexing_diagram.png" class="figure mx-auto d-block"></figure><hr>
+<h3 id="04-arrays-figure-4">Figure 4</h3>
+<figure><img src="fig/indexing_diagram3.png" class="figure mx-auto d-block"></figure><hr>
+<h3 id="04-arrays-figure-5">Figure 5</h3>
+<figure><img src="fig/slicing_diagram.png" class="figure mx-auto d-block"></figure><hr>
+<h3 id="04-arrays-figure-6">Figure 6</h3>
+<p align="center">
+<img src="fig/residues_annotation.png" class="figure"></p>
+<hr>
+<h3 id="04-arrays-figure-7">Figure 7</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Common operations for list, tuple and set arrays in Python.’</p>
+<figure id="cheatsheat"><img src="fig/arrays-cheatsheet.png" alt="Common operations for list, tuple and set arrays in Python." class="figure mx-auto d-block"><div class="figcaption">Common operations for list, tuple and set arrays
+in Python.</div>
+</figure><hr>
+<h3 id="04-arrays-figure-8">Figure 8</h3>
+<figure><img src="fig/nested_arrays.png" class="figure mx-auto d-block"></figure><hr>
+<h3 id="04-arrays-figure-9">Figure 9</h3>
+<p><img src="fig/nested_arrays2.png" class="figure"> ### Note In the diagram above,
+<code>table[1][0]</code> assumes that <code>table[1]</code> is a list
+(i.e., a nested array). If table were defined like this:</p>
+<hr>
+<h3 id="04-arrays-figure-10">Figure 10</h3>
+<div class="callout-content">
+<p>Given the following Table of pathogens and their corresponding
+diseases:</p>
+<img src="fig/pathogens.png" class="figure"><p style="text-align: justify;">
+</p>
+<ol style="list-style-type: decimal">
+<li>Substitute <span style="color: rgb(32, 121, 77);">N/A</span> for
+<code>None</code>, and create an array to represent the table in its
+presented order. Retain the array in a variable, and display the
+result.</li>
+</ol>
+<p style="text-align: justify;">
+</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Modify the array you created so that its members are sorted
+<em>descendingly</em>, and display the result.</li>
+</ol>
+</div>
+<hr>
+<h3 id="04-arrays-figure-11">Figure 11</h3>
+<p>A two dimensional arrays may be visualised as follows: <img src="fig/dimensions.png" class="figure"></p>
+<hr>
+<h3 id="04-arrays-figure-12">Figure 12</h3>
+<div class="callout-content">
+<p style="text-align: justify;">
+Computers see images as multidimensional arrays (matrices). In its
+simplest form, an image is a two-dimensional array containing only two
+colours.
+</p>
+<p>Given the following black and white image:</p>
+<img src="fig/image.png" class="figure"><p style="text-align: justify;">
+</p>
+<ol style="list-style-type: decimal">
+<li>Considering that black and white squares represent zeros and ones
+respectively, create a two-dimensional array to represent the image.
+Display the results.</li>
+</ol>
+<p style="text-align: justify;">
+</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Create a new array, but this time use <code>False</code> and
+<code>True</code> to represent black and white respectively.</li>
+</ol>
+<p>Display the results.</p>
+</div>
+<hr>
+<h3 id="04-arrays-figure-13">Figure 13</h3>
+<figure><img src="fig/nested_index.png" class="figure mx-auto d-block"></figure><hr>
+<h3 id="04-arrays-figure-14">Figure 14</h3>
+<p><img src="fig/adjacency_matrix.png" class="figure"> where each row in the matrix
+represents a node of origin in the graph, and each column a node of
+destination:</p>
+<hr>
+<h3 id="04-arrays-figure-15">Figure 15</h3>
+<p><img src="fig/adjacency_matrix2.png" class="figure"> If the graph maintains a
+connection (edge) between two nodes (<em>e.g.</em> between nodes <span style="color: rgb(32, 121, 77);">A</span> and <span style="color: rgb(32, 121, 77);">B</span> in the graph above), the
+corresponding value between those nodes would be #1 in the matrix, and
+if there are no connections, the corresponding value would #0.</p>
+<hr>
+<h3 id="04-arrays-figure-16">Figure 16</h3>
+<p>Given the following graph: <img src="fig/adjacency_matrix3.png" class="figure"></p>
 <hr></section>
 </div>
     </main>
@@ -401,8 +748,8 @@ of nucleotides, not the number of <code>CAG</code> codons. See task 4 of
   "url": "https://learntodiscover.github.io/Basic_Python/images.html",
   "identifier": "https://learntodiscover.github.io/Basic_Python/images.html",
   "dateCreated": "2022-04-04",
-  "dateModified": "2025-05-07",
-  "datePublished": "2025-05-07"
+  "dateModified": "2025-05-22",
+  "datePublished": "2025-05-22"
 }
 
   </script><script>

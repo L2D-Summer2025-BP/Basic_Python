@@ -46,7 +46,7 @@ knitr::opts_chunk$set(
   echo = TRUE,    # Display the code chunks in the final output
   message = FALSE,  # Suppress messages from being shown
   warning = FALSE,  # Suppress warnings from being shown
-  results = 'asis',  # Ensure output is handled properly
+  results = 'markup',  # Ensure output is handled properly
   engine = "python"  # Use Python engine for relevant chunks
 )
 

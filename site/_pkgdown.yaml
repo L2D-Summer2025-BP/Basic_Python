@@ -12,7 +12,7 @@ home:
 template:
   package: varnish
   params:
-    time: 2025-05-07 16:00:49 +0000
+    time: 2025-05-22 15:12:50 +0000
     source: https://github.com/LearnToDiscover/Basic_Python
     branch: main
     contact: admin@learntodiscover.ai
@@ -43,6 +43,7 @@ template:
     - 01-getting_started.Rmd
     - 02-input_output.Rmd
     - 03-conditional_statements.Rmd
+    - 04-arrays.Rmd
     learners: setup.md
     instructors: ~
     profiles: Mat1_b.md
