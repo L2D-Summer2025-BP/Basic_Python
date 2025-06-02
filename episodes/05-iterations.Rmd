@@ -46,7 +46,7 @@ knitr::opts_chunk$set(
   echo = TRUE,    # Display the code chunks in the final output
   message = FALSE,  # Suppress messages from being shown
   warning = FALSE,  # Suppress warnings from being shown
-  results = 'asis',  # Ensure output is handled properly
+  results = 'markup',  # Ensure output is handled properly
   engine = "python"  # Use Python engine for relevant chunks
 )
 
@@ -58,7 +58,7 @@ cat("Setup chunk complete.\n")
 - What do we mean by *iterations* and *loops*?
 - How are ```for```-loops implemented?
 - Can conditional statements be used in iterations?
-- What are ```while```-loops, and how these used?
+- What are ```while```-loops, and how are these used?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -82,12 +82,12 @@ cat("Setup chunk complete.\n")
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-Ex4JtqhWLw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </p>
 <br>
-This chapter assumes that you are familiar with the following concepts in Python:
+This chapter assumes that you are familiar with the following concepts in Python.
 
 :::::::::::::::::: prereq
 - [I/O Operations](02-input_output.Rmd#operations)
 - [Variables and Types](02-input_output.Rmd#varTypes)
-- [Mathematical Operation](02-input_output.Rmd#math_ops)
+- [Mathematical Operations](02-input_output.Rmd#math_ops)
 - [Logical Operations](02-input_output.Rmd#subsec:logicalOperatons)
 - [Indentation Rule](03-conditional_statements.Rmd#subsubsec:indentationRule)
 - [Conditional Statements](03-conditional_statements.Rmd)
@@ -134,10 +134,10 @@ print(numbers)
 ```
 
 <p style='text-align: justify;'>
-Whilst this does the job, it is clearly very tedious. Furthermore, if we have an array of several thousand members, this approach quickly becomes infeasible.
+Whilst this does the job, it is clearly very tedious. Furthermore, if we have a list of several thousand members, this approach quickly becomes infeasible.
 </p>
 
-The process of multiplying individual members of our array by 2 is a very simple example of a repetitive operations.
+The process of multiplying individual members of our array by 2 is a very simple example of a repetitive operation.
 
 
 :::::::::::::::::::::::::::::::::::: callout
@@ -148,9 +148,9 @@ In programming, there is a universally appreciated golden principle known as the
 **D**on't **R**epeat **Y**ourself
 </p>
 
-So if you find yourself doing something again and again, it is fair to assume that there might a better way of getting the results you're looking for.
+So if you find yourself doing something again and again, it is fair to assume that there might be a better way of getting the results you're looking for.
 
-Some programmers (with questionable motives) have created **WET** rule too. Find out more about DRY and WET from [Wikipedia](https://en.wikipedia.org/wiki/Don\%27t_repeat_yourself).
+Some programrs (with questionable motives) have created **WET** rule too. Find out more about DRY and WET from [Wikipedia](https://en.wikipedia.org/wiki/Don\%27t_repeat_yourself).
 
 ::::::::::::::::::::::::::::::::::::
 
@@ -165,7 +165,7 @@ In this section of the lesson, we will discuss iterations via <kbd>for</kbd> and
 ## for-loops {#for-loop}
 
 <p style='text-align: justify;'>
-There is evidence that up to 80\% of all conventional iterations are implemented as <kbd>for</kbd>-loops. Whether or not it is the best choice in of all these cases is subject to opinion. What is important, however, is to learn the difference between the two methods, and feel comfortable with how they work.
+There is evidence that up to 80\% of all conventional iterations are implemented as <kbd>for</kbd>-loops. Whether or not it is the best choice in all these cases is subject to opinion. What is important, however, is to learn the difference between the two methods, and feel comfortable with how they work.
 </p>
 
 <p style='text-align: justify;'>
@@ -221,14 +221,14 @@ for item in numbers:
 ```
 
 <p style='text-align: justify;'>
-We can see that the result for each iteration is displayed on a new line. [Example](#ExtExmp) outlines other such applications and expands on repetitive operations that may be simplified using <kbd>for</kbd>-loops.
+We can see that the result for each iteration is displayed on a new line. The [example](#ExtExmp) outlines other such applications and expands on repetitive operations that may be simplified using <kbd>for</kbd>-loops.
 </p>
 
 
 :::::::::::::::::::::::::::::::::::: callout
 ## Advanced Topic
 <p style='text-align: justify;'>
-An iterable is a Python variable that contains the built--in method ```.__iter__()```. Methods starting and ending with two underscores (dunderscores) are also known as *magic methods* in Python. See the official [Python documentations](https://docs.python.org/3/tutorial/classes.html\#iterators) for additional information.
+An iterable is a Python variable that contains the built--in method ```.__iter__()```. Methods starting and ending with two underscores (dunderscores) are also known as *magic methods* in Python. See the official [Python documentation](https://docs.python.org/3/tutorial/classes.html\#iterators) for additional information.
 </p>
 
 ::::::::::::::::::::::::::::::::::::
@@ -285,6 +285,8 @@ for sequence in peptides:
 
     print('Peptide', sequence, 'at index', index, 'contains', length, 'amino acids.')
 ```
+
+*Note: this answer covers how to use the `.index()` method, and is focused on demonstrating this, in line with what we have discussed up to this point. It is, however, more effecient to use `enumerate`, which will be discussed, later in the lesson.*
 
 :::::::::::::::::
 
@@ -415,6 +417,8 @@ for sequence in peptides:
     item = (sequence, length)
 
     peptides_with_length.append(item)
+    
+print(peptides_with_length)
 ```
 
 :::::::::::::::::
@@ -429,11 +433,11 @@ The replacement method uses a slightly different approach. Essentially, what we 
   - Return the value back into the original array through *item assignment*, thereby replacing the existing value.
 
 <p style='text-align: justify;'>
-We learned about modifying an existing value in a ```list``` in our discussion of [mutability](04-arrays.Rmd#subsubsec:list:mutability), where we discussed the concept of *item assignment*. The process of replacing the original values of an array in a <kbd>for</kbd>-loop is identical. An important point to be aware of, however, is that we make use of the correct *index* for the specific item in the array that we are trying to modify. Additionally, don't forget that *item assignment* is only possible in mutable arrays such as ```list```. See [Table](02-input_output.Rmd#fig:nativeTypes) to see which types of array are mutable in Python.
+We learned about modifying an existing value in a ```list``` in our discussion of [mutability](04-arrays.Rmd#subsubsec:list:mutability), where we discussed the concept of *item assignment*. The process of replacing the original values of an array in a <kbd>for</kbd>-loop is identical. An important point to be aware of, however, is that we make use of the correct *index* for the specific item in the array that we are trying to modify. Additionally, don't forget that *item assignment* is only possible in mutable arrays such as ```list```. See [Table](02-input_output.Rmd#fig:nativeTypes) to see which types of data container are mutable in Python.
 </p>
 
 <p style='text-align: justify;'>
-To perform *item assignment*; we can use a variable to represent the current iteration cycle in our <kbd>for</kbd>-loop. We do so by initialising the variable with a value of 0, and adding 1 to its value at the end of each cycle. We can then use that variable as an *index* in each iteration cycle:
+To perform *item assignment*, we can use a variable to represent the current iteration cycle in our <kbd>for</kbd>-loop. We do so by initialising the variable with a value of 0, and adding 1 to its value at the end of each cycle. We can then use that variable as an *index* in each iteration cycle:
 </p>
 
 ```{python}
@@ -460,13 +464,13 @@ print(numbers)
 :::::::::::::::::::::::::::::::::::: callout
 ## Advanced Topic
 <p style='text-align: justify;'>
-The ```enumerate()``` function actually returns a *generator* of ```tuple``` items each time it is called in the context of a ```for```-loop. A generator is, in principle, similar to a normal array; however, unlike an array, the values of a generator are not evaluated by the computer until the exact time at which they are going to be used. This is an important technique in functional programming known as *lazy evaluation*. It is primarily utilised to reduce the workload on the computer (both the processor and the memory) by preventing the execution of processes that could otherwise be delayed to a later time. In the case of the ```enumerate()``` function, the values are evaluated at the beginning of each iteration cycle in a ```for```-loop. Learn more about lazy evaluation in [Wikipedia](https://en.wikipedia.org/wiki/Lazy_evaluation) or read more on generators in Python in the [official documentations](https://docs.python.org/3/howto/functional.html\#generators).
+The ```enumerate()``` function actually returns a *generator* of ```tuple``` items each time it is called in the context of a ```for```-loop. A generator is, in principle, similar to a normal array; however, unlike an array, the values of a generator are not evaluated by the computer until the exact time at which they are going to be used. This is an important technique in functional programming known as *lazy evaluation*. It is primarily utilised to reduce the workload on the computer (both the processor and the memory) by preventing the execution of processes that could otherwise be delayed to a later time. In the case of the ```enumerate()``` function, the values are evaluated at the beginning of each iteration cycle in a ```for```-loop. Learn more about lazy evaluation in [Wikipedia](https://en.wikipedia.org/wiki/Lazy_evaluation) or read more on generators in Python in the [official documentation](https://docs.python.org/3/howto/functional.html\#generators).
 </p>
 
 ::::::::::::::::::::::::::::::::::::
 
 <p style='text-align: justify;'>
-This is a perfectly valid approach and it is used in many programming languages. However, Python makes this process even easier by introducing the function <kbd>enumerate()</kbd>. We often use this function at the initiation of a <kbd>for</kbd>-loop. The function takes an array as an input and as the name suggests, enumerates them; thereby simplifying the indexing process. The previous example may, therefore, be written more concisely in Python, as follows:
+This is a perfectly valid approach and is used in many programming languages. However, Python makes this process even easier by introducing the function <kbd>enumerate()</kbd>. We often use this function at the initiation of a <kbd>for</kbd>-loop. The function takes an array as an input and as the name suggests, enumerates them; thereby simplifying the indexing process. The previous example may, therefore, be written more concisely in Python, as follows:
 </p>
 
 ```{python}
@@ -486,21 +490,21 @@ print(numbers)
 
 Given:
 ```{python}
-characters = ['1', '2', '3', '4']
+characters = ['1', '2', '3']
 ```
-Display each item in <span style="color: rgb(32, 121, 77);">characters</span> as many times in one line as the index of that item in <span style="color: rgb(32, 121, 77);">characters</span>. The results should appear as follows:
+Display each item in one line as many times as the value of its (zero-based) index. The results should appear as follows:
 
 ```
-2
-33
-444
+1
+22
+333
 ```
 ::::::::::::::::: solution
 
 ## ANSWER
 ```{python}
 for index, item in enumerate(characters):
-    print(item * index)
+    print(item * (index + 1))
 ```
 
 :::::::::::::::::
@@ -637,7 +641,7 @@ Consider the following:
 
 
 <p style='text-align: justify;'>
-It is impossible to write such a process using a ```for```-loop. This is because when we initialise the iteration process in a ```for```-loop, the number of loops we need is unknown. In other words, we simply do not know how many times the user would need enter said sequence before they get it right.
+It is impossible to write such a process using a ```for```-loop. This is because when we initialise the iteration process in a ```for```-loop, the number of loops we need is known, in advance. In other words, we simply do not know how many times the user would need to enter said sequence before they get it right.
 </p>
 
 ![](fig/flowchart3.png){#flowchart3}
@@ -681,7 +685,7 @@ Enter a sequence of exactly 5 amino acids: GCGLL
 GCGLL
 ```
 
-As expected, the user is repetitively asked to enter a five-character sequence until they supply the correct number of letters.
+As expected, the user is repeatedly asked to enter a five-character sequence until they supply the correct number of letters.
 
 
 ::::::::::::::::::::::::::::::: challenge
@@ -694,7 +698,7 @@ As expected, the user is repetitively asked to enter a five-character sequence u
 
 **Hint:** Don't forget to [convert](#sec:conversionType) the value entered by the user to an appropriate numeric type *before* you perform any mathematical operations.
 <p style='text-align: justify;'>
-2. We learned in subsection [Sequence of Numbers](#subsec:iter:for:range) that the built-in function <kbd>range()</kbd> may be utilised to produce a sequence of *integer* numbers. The function takes 3 input arguments in the following order: <span style="color: rgb(32, 121, 77);">stop, start, step</span>.
+2. We learned in subsection [Sequence of Numbers](#subsec:iter:for:range) that the built-in function <kbd>range()</kbd> may be utilised to produce a sequence of *integer* numbers. The function takes 3 input arguments in the following order: <span style="color: rgb(32, 121, 77);">start, stop, step</span>.
 </p>
 
 We now need a sequence of floating-point numbers with the following criteria:
@@ -758,7 +762,7 @@ step = 0.5
 
 sequence = [start]
 
-while sequence[-1] < stop - step:
+while sequence[-1] < stop:
     sequence.append(sequence[-1] + step)
 
 print(sequence)
@@ -776,11 +780,11 @@ To consider a situation that may necessitate such an approach, we shall modify o
 
 <p style='text-align: justify;'>
 >We want to ask the user to enter a sequence of exactly five amino acids. If the sequence the user provides is more or less than five letters long, we would like to display a message and ask them to try again; otherwise, we will display the sequence and terminate the program. Additionally, the loop should be terminated:
-   - upon three failed attempts; or,
+   - upon two failed attempts; or,
    - if the user enters the word <span style="color: rgb(32, 121, 77);">exit</span> instead of a five-character sequence.
 
 </p>
-In the former case, however, we would also like to display a message and inform the user that we are terminating the programme because of three failed attempts.
+In the former case, however, we would also like to display a message and inform the user that we are terminating the program because of three failed attempts.
 
 To implement the first addition to our code, we will have to make the following alterations in our code:
 
