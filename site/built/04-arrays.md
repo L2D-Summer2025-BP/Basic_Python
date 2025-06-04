@@ -1622,17 +1622,13 @@ amino_acid_annotations = amino_acids.copy()
 
 
 ``` python
-amino_acid_annotations.append(‘X’)
+amino_acid_annotations.append('X')
 
-amino_acid_annotations.append(‘B’)
+amino_acid_annotations.append('B')
 
-amino_acid_annotations.append(‘Z’)
+amino_acid_annotations.append('Z')
 
-amino_acid_annotations.append(‘J’)
-```
-
-``` output
-invalid character '‘' (U+2018) (<string>, line 1)
+amino_acid_annotations.append('J')
 ```
 :::::::::::::::::
 
@@ -1643,6 +1639,12 @@ invalid character '‘' (U+2018) (<string>, line 1)
 
 ``` python
 lengths = [len(amino_acids), len(amino_acid_annotations)]
+
+print(lengths)
+```
+
+``` output
+[20, 24]
 ```
 
 :::::::::::::::::
@@ -1659,7 +1661,7 @@ print(equivalence)
 ```
 
 ``` output
-True
+False
 ```
 
 
@@ -1890,7 +1892,7 @@ print("Type:", type(table_rev))
 ```
 
 ``` output
-Result: <list_reverseiterator object at 0x119bbc5b0>
+Result: <list_reverseiterator object at 0x116d14d60>
 Type: <class 'list_reverseiterator'>
 ```
 
@@ -2799,7 +2801,7 @@ print(unique_samples)
 ```
 
 ``` output
-{'sample2', 'sampleC', 'sample3', 'sample1'}
+{'sampleC', 'sample3', 'sample1', 'sample2'}
 ```
 
 Let's create a set from a list, as follows:
@@ -2812,7 +2814,7 @@ print(unique_samples)
 ```
 
 ``` output
-{'1', 1, 2, 5}
+{1, 2, 5, '1'}
 ```
 
 ``` python
@@ -2865,7 +2867,7 @@ print("After adding geneD:", gene_set)
 ```
 
 ``` output
-After adding geneD: {'geneC', 'geneB', 'geneA', 'geneD'}
+After adding geneD: {'geneD', 'geneB', 'geneC', 'geneA'}
 ```
 
 If you attempt to add a duplicate, this will be ignored:
@@ -2877,7 +2879,7 @@ print("After attempting to add geneA again:", gene_set)
 ```
 
 ``` output
-After attempting to add geneA again: {'geneC', 'geneB', 'geneA', 'geneD'}
+After attempting to add geneA again: {'geneD', 'geneB', 'geneC', 'geneA'}
 ```
 
 
@@ -2912,7 +2914,7 @@ print("All genes found:", all_found_genes)
 ```
 
 ``` output
-All genes found: {'TP53', 'KRAS', 'MAPK1', 'VEGFA', 'BRCA1', 'AKT1', 'MYC'}
+All genes found: {'TP53', 'KRAS', 'VEGFA', 'MAPK1', 'BRCA1', 'MYC', 'AKT1'}
 ```
 
 Intersection - genes found in both experiments:
@@ -2923,7 +2925,7 @@ print("Common genes:", common_genes)
 ```
 
 ``` output
-Common genes: {'MYC', 'TP53', 'KRAS'}
+Common genes: {'TP53', 'KRAS', 'MYC'}
 ```
 
 Symmetric difference - genes found in only one of the experiments:
@@ -2934,7 +2936,7 @@ print("Genes found exclusively in one experiment:", exclusive_genes)
 ```
 
 ``` output
-Genes found exclusively in one experiment: {'VEGFA', 'BRCA1', 'AKT1', 'MAPK1'}
+Genes found exclusively in one experiment: {'VEGFA', 'MAPK1', 'BRCA1', 'AKT1'}
 ```
 
 Difference - genes unique to the first experiment:
@@ -2945,7 +2947,7 @@ print("Unique to Experiment 1:", unique_to_exp1)
 ```
 
 ``` output
-Unique to Experiment 1: {'AKT1', 'BRCA1'}
+Unique to Experiment 1: {'BRCA1', 'AKT1'}
 ```
 
 ::::::::::::::::::::::::::::::: challenge

@@ -1292,13 +1292,13 @@ amino_acid_annotations = amino_acids.copy()
 ## Q2
 
 ```{python}
-amino_acid_annotations.append(‘X’)
+amino_acid_annotations.append('X')
 
-amino_acid_annotations.append(‘B’)
+amino_acid_annotations.append('B')
 
-amino_acid_annotations.append(‘Z’)
+amino_acid_annotations.append('Z')
 
-amino_acid_annotations.append(‘J’)
+amino_acid_annotations.append('J')
 ```
 :::::::::::::::::
 
@@ -1308,6 +1308,8 @@ amino_acid_annotations.append(‘J’)
 
 ```{python}
 lengths = [len(amino_acids), len(amino_acid_annotations)]
+
+print(lengths)
 ```
 
 :::::::::::::::::
