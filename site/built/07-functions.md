@@ -10,48 +10,7 @@ exercises: 2
 
 [<span style="color: rgb(255, 0, 0);">**Lesson Feedback Survey**</span>](https://docs.google.com/forms/d/e/1FAIpQLSdr0capF7jloJhPH3Pki1B3LZoKOG16poOpuVJ7SL2LkwLHQA/viewform?pli=1)
 
-```{r setup, include=FALSE}
-library(reticulate)
 
-# Unset any previously set Python environments to avoid conflicts
-Sys.unsetenv("RETICULATE_PYTHON")
-
-# Check if Pandoc is available
-if (!file.exists("/opt/homebrew/bin/pandoc")) {
-  stop("Pandoc is not found. Please install Pandoc or update the path.")
-}
-
-# Dynamically set the Python environment
-tryCatch({
-  use_virtualenv("/Users/Adam/.virtualenvs/r-reticulate", required = TRUE)
-  cat("Python environment set successfully.\n")
-}, error = function(e) {
-  cat("Error setting Python environment:", e$message, "\n")
-  stop("Failed to set Python environment.")
-})
-
-# Validate Python environment
-tryCatch({
-  py_config()
-  py_run_string("import numpy")  # Check for numpy availability
-  cat("Python environment and numpy are correctly configured.\n")
-}, error = function(e) {
-  cat("Error in Python environment configuration or numpy check:", e$message, "\n")
-  stop("Failed to validate Python environment.")
-})
-
-# Configure knitr chunks to ensure Python code is executed correctly
-knitr::opts_chunk$set(
-  eval = TRUE,    # Execute the code chunks
-  echo = TRUE,    # Display the code chunks in the final output
-  message = FALSE,  # Suppress messages from being shown
-  warning = FALSE,  # Suppress warnings from being shown
-  results = 'markup',  # Ensure output is handled properly
-  engine = "python"  # Use Python engine for relevant chunks
-)
-
-cat("Setup chunk complete.\n")
-```
 
 :::::::::::::::::::::::::::::::::::::: questions
 
@@ -159,8 +118,8 @@ Once you start creating functions for different purposes, you will eventually am
 
 So let us implement the example outline in the diagram:
 
-```{python, results='hold'}
 
+``` python
 def add(value_a, value_b):
     """
     Calculates the sum of two numeric values
@@ -181,10 +140,15 @@ def add(value_a, value_b):
 Once implemented, we can call and use the function we created. We can do so in the same way as we do with the *built-in* functions such as <kbd>max()</kbd> or <kbd>print()</kbd>:
 </p>
 
-```{python}
+
+``` python
 res = add(2, 5)
 
 print(res)
+```
+
+``` output
+7
 ```
 
 :::::::::::::::::::::::::::::::::::: callout
@@ -211,18 +175,28 @@ Alternatively, we can use the name of each *input argument* to pass values onto 
 
 Let us now use *keyword arguments* to pass values to our <kbd>add()</kbd> function:
 
-```{python}
+
+``` python
 res = add(value_a=2, value_b=5)
 
 print(res)
 ```
 
+``` output
+7
+```
+
 Now, even if we change the order of our arguments, the function would still be able to associate the values to the correct keyword argument:
 
-```{python}
+
+``` python
 res = add(value_b=2, value_a=5)
 
 print(res)
+```
+
+``` output
+7
 ```
 
 :::::::::::::::::::::::::::::::::::: callout
@@ -236,26 +210,30 @@ Choose the order of your *input argument* wisely. This is important when your fu
 Suppose we want to define a 'division' function. It makes sense to assume that the first number passed to the function will be divided by the second number:
 </p>
 
-```{python}
+
+``` python
 def divide(a, b):
     return a / b
 ```
 
 It is also much less likely for someone to use *keywords* to pass arguments to this function -- that is, to say:
 
-```{python}
+
+``` python
 result = divide(a=2, b=4)
 ```
 
 than it is for them to use positional arguments (without any keywords), that is:
 
-```{python}
+
+``` python
 result = divide(2, 4)
 ```
 
 But if we use an arbitrary order, then we risk running into problems:
 
-```{python}
+
+``` python
 def divide_bad(denominator, numerator):
     return numerator / denominator
 ```
@@ -264,11 +242,16 @@ def divide_bad(denominator, numerator):
 In which case, our function would perform perfectly well if we use *keyword arguments*; however, if we rely on positional arguments and common sense, then the result of the division would be calculated incorrectly.
 </p>
 
-```{python}
+
+``` python
 result_a = divide_bad(numerator=2, denominator=4)
 result_b = divide_bad(2, 4)
 
 print(result_a == result_b)
+```
+
+``` output
+False
 ```
 ::::::::::::::::::::::::::::::::::::
 
@@ -296,7 +279,8 @@ res = find_tata(sequence)
 ::::::::::::::::: solution
 
 ## ANSWER
-```{python}
+
+``` python
 def find_tata(seq):
     tata_box = 'TATA'
     result = seq.find(tata_box)
@@ -325,7 +309,8 @@ It is *essential* to write short, informative documentation for a functions that
 This documentation string is referred to as the *docstring*. It is always written inside triple quotation marks. The *docstring* must be implemented on the *very first line*, immediately following the declaration of the function, in order for it to be recognised as documentation:
 </p>
 
-```{python,results='hold'}
+
+``` python
 def add(value_a, value_b):
     """
     Calculates the sum of two numeric values
@@ -354,23 +339,48 @@ You might feel as though you would remember what your own functions do. Assuming
 Writing the *docstring* on the first line is important. Once a function is documented, we can use <kbd>help()</kbd>, which is a built-in function in Python, to access the documentations as follows:
 </p>
 
-```{python}
+
+``` python
 help(add)
+```
+
+``` output
+Help on function add in module __main__:
+
+add(value_a, value_b)
+    Calculates the sum of two numeric values
+    given as inputs.
+
+    :param value_a: First value.
+    :type value_a: int, float
+    :param value_b: Second value.
+    :type value_b: int, float
+    :return: Sum of the two values.
+    :rtype: int, float
 ```
 
 <p style='text-align: justify;'>
 For very simple functions -- like the <kbd>add()</kbd> function that we implemented above, it is sufficient to simplify the docstring into something straightforward, and concise. This is because it is fairly obvious what are the input and output arguments are, and what their respective types are/should be. For example:
 </p>
 
-```{python}
+
+``` python
 def add(value_a, value_b):
     """value_a + value_b -> number"""
     result = value_a + value_b
     return result
 ```
 
-```{python}
+
+``` python
 help(add)
+```
+
+``` output
+Help on function add in module __main__:
+
+add(value_a, value_b)
+    value_a + value_b -> number
 ```
 
 ::::::::::::::::::::::::::::::: challenge
@@ -384,7 +394,8 @@ Re-implement the function you defined in the previous [Practice Exercise 1](#diy
 
 ## ANSWER
 
-```{python, results='hold'}
+
+``` python
 def find_tata(seq):
     """
     Finds the location of the TATA-box,
@@ -440,7 +451,8 @@ The default value defined for *optional arguments* can theoretically be an insta
 In order to define functions with optional arguments, we need to assign a default value to them. Remember: input arguments are variables with a specific scope. As a result, we can treat our input argument as variables and assign them a value:
 </p>
 
-```{python, results='hold'}
+
+``` python
 def prepare_seq(seq, name, upper=False):
     """
     Prepares a sequence to be displayed.
@@ -467,7 +479,8 @@ def prepare_seq(seq, name, upper=False):
 
 Now if we don't explicitly define ```upper``` when calling <kbd>prepare_seq()</kbd>, its value is automatically considered to be ```False```:
 
-```{python}
+
+``` python
 sequence = 'TagCtGC'
 
 prepped = prepare_seq(sequence, 'DNA')
@@ -475,12 +488,21 @@ prepped = prepare_seq(sequence, 'DNA')
 print(prepped)
 ```
 
+``` output
+The sequence of DNA is: TagCtGC
+```
+
 If we change the default value of ```False``` for ```upper``` and set to ```True```, our sequence should be converted to upper case characters:
 
-```{python}
+
+``` python
 prepped = prepare_seq(sequence, 'DNA', upper=True)
 
 print(prepped)
+```
+
+``` output
+The sequence of DNA is: TAGCTGC
 ```
 
 
@@ -502,7 +524,8 @@ Do not forget to update the *docstring* of your function.
 
 ## ANSWER
 
-```{python, results='hold'}
+
+``` python
 def find_tata(seq, upper=False):
     """
     Finds the location of the TATA-box,
@@ -546,7 +569,8 @@ It is important to note that it is also possible to have more than one <kbd>retu
 
 This means that we can simplify the process as follows:
 
-```{python, results='hold'}
+
+``` python
 def prepare_seq(seq, name, upper=False):
     """
     Prepares a sequence to be displayed.
@@ -580,7 +604,8 @@ This does not alter the functionality of the function, in any way. However, in c
 
 Now if we call our function, it will behave in exactly the same way as it did before:
 
-```{python}
+
+``` python
 sequence = 'TagCtGC'
 
 prepped = prepare_seq(sequence, 'DNA')
@@ -588,11 +613,20 @@ prepped = prepare_seq(sequence, 'DNA')
 print(prepped)
 ```
 
+``` output
+The sequence of DNA is: TagCtGC
+```
 
-```{python}
+
+
+``` python
 prepped = prepare_seq(sequence, 'DNA', upper=True)
 
 print(prepped)
+```
+
+``` output
+The sequence of DNA is: TAGCTGC
 ```
 
 ### **Interconnectivity of Functions**
@@ -613,7 +647,8 @@ So in instances where more operations are required, it is advised not to write m
 
 ![](fig/mini_toolbox.png)
 
-```{python, results='hold'}
+
+``` python
 def mean(arr):
     """
     Calculates the mean of an array.
@@ -633,7 +668,8 @@ def mean(arr):
 
 Now that we have function to calculate the *mean*, we can go ahead and write a function to calculate the variance; which itself relies on *mean*:
 
-```{python, results='hold'}
+
+``` python
 def variance(arr):
     """
     Calculates the variance of an array.
@@ -660,27 +696,39 @@ Now we have two functions, which can be used to calculate the *variance*, or the
 
 Remember that testing a function is inherent to successful design. So let’s test our functions
 
-```{python}
+
+``` python
 numbers = [1, 5, 0, 14.2, -23.344, 945.23, 3.5e-2]
 ```
 
-```{python}
+
+``` python
 numbers_mean = mean(numbers)
 
 print(numbers_mean)
 ```
 
-```{python}
+``` output
+134.58871428571427
+```
+
+
+``` python
 numbers_variance = variance(numbers)
 
 print(numbers_variance)
+```
+
+``` output
+109633.35462420408
 ```
 
 Now that we have a function to calculate the *variance*, we can easily proceed to calculate the *standard deviation*, as well.
 
 The standard deviation is calculated from the square root of variance. We can easily implement this in a new function as follows:
 
-```{python, results='hold'}
+
+``` python
 def stan_dev(arr):
     """
     Calculates the standard deviation of an array.
@@ -701,10 +749,15 @@ def stan_dev(arr):
 
 Now let's see how it works, in practice:
 
-```{python}
+
+``` python
 numbers_std = stan_dev(numbers)
 
 print(numbers_std)
+```
+
+``` output
+331.1092789762982
 ```
 
 ::::::::::::::::::::::::::::::::::::
@@ -720,7 +773,8 @@ Write a function that --- given an array of any values --- produces a dictionary
 
 For the following array:
 
-```{python}
+
+``` python
 values = [1, 1.3, 1, 1, 5, 5, 1.3, 'text', 'text', 'something']
 ```
 
@@ -732,7 +786,8 @@ the function should return the above dictionary:
 
 ## ANSWER
 
-```{python, results='hold'}
+
+``` python
 def count_values(arr):
     """
     Converts an array into a dictionary of
@@ -779,7 +834,8 @@ Write a function with the following features:
 
 To test the function, combine three arrays in a tuple as follows:
 
-```{python}
+
+``` python
 my_arrays = (
     [1, 2, 3, 4, 5],
     [7, 7, 7, 7],

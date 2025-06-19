@@ -16,6 +16,12 @@
     <loc>https://learntodiscover.github.io/Basic_Python/05-iterations.html</loc>
   </url>
   <url>
+    <loc>https://learntodiscover.github.io/Basic_Python/06-dictionaries.html</loc>
+  </url>
+  <url>
+    <loc>https://learntodiscover.github.io/Basic_Python/07-functions.html</loc>
+  </url>
+  <url>
     <loc>https://learntodiscover.github.io/Basic_Python/404.html</loc>
   </url>
   <url>
@@ -23,12 +29,6 @@
   </url>
   <url>
     <loc>https://learntodiscover.github.io/Basic_Python/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://learntodiscover.github.io/Basic_Python/aio.html</loc>
-  </url>
-  <url>
-    <loc>https://learntodiscover.github.io/Basic_Python/images.html</loc>
   </url>
   <url>
     <loc>https://learntodiscover.github.io/Basic_Python/index.html</loc>
@@ -49,6 +49,12 @@
     <loc>https://learntodiscover.github.io/Basic_Python/instructor/05-iterations.html</loc>
   </url>
   <url>
+    <loc>https://learntodiscover.github.io/Basic_Python/instructor/06-dictionaries.html</loc>
+  </url>
+  <url>
+    <loc>https://learntodiscover.github.io/Basic_Python/instructor/07-functions.html</loc>
+  </url>
+  <url>
     <loc>https://learntodiscover.github.io/Basic_Python/instructor/404.html</loc>
   </url>
   <url>
@@ -58,28 +64,10 @@
     <loc>https://learntodiscover.github.io/Basic_Python/instructor/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://learntodiscover.github.io/Basic_Python/instructor/aio.html</loc>
-  </url>
-  <url>
-    <loc>https://learntodiscover.github.io/Basic_Python/instructor/images.html</loc>
-  </url>
-  <url>
     <loc>https://learntodiscover.github.io/Basic_Python/instructor/index.html</loc>
   </url>
   <url>
-    <loc>https://learntodiscover.github.io/Basic_Python/instructor/instructor-notes.html</loc>
-  </url>
-  <url>
-    <loc>https://learntodiscover.github.io/Basic_Python/instructor/key-points.html</loc>
-  </url>
-  <url>
     <loc>https://learntodiscover.github.io/Basic_Python/instructor/profiles.html</loc>
-  </url>
-  <url>
-    <loc>https://learntodiscover.github.io/Basic_Python/instructor-notes.html</loc>
-  </url>
-  <url>
-    <loc>https://learntodiscover.github.io/Basic_Python/key-points.html</loc>
   </url>
   <url>
     <loc>https://learntodiscover.github.io/Basic_Python/profiles.html</loc>

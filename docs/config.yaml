@@ -71,9 +71,9 @@ episodes:
   - 02-input_output.Rmd
   - 03-conditional_statements.Rmd
   - 04-arrays.Rmd
-  # - 05-iterations.Rmd
-  # - 06-dictionaries.Rmd
-  # - 07-functions.Rmd
+  - 05-iterations.Rmd
+  - 06-dictionaries.Rmd
+  - 07-functions.Rmd
 
 # Information for Learners
 learners:

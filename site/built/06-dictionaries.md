@@ -10,48 +10,7 @@ exercises: 2
 
 [<span style="color: rgb(255, 0, 0);">**Lesson Feedback Survey**</span>](https://docs.google.com/forms/d/e/1FAIpQLSdr0capF7jloJhPH3Pki1B3LZoKOG16poOpuVJ7SL2LkwLHQA/viewform?pli=1)
 
-```{r setup, include=FALSE}
-library(reticulate)
 
-# Unset any previously set Python environments to avoid conflicts
-Sys.unsetenv("RETICULATE_PYTHON")
-
-# Check if Pandoc is available
-if (!file.exists("/opt/homebrew/bin/pandoc")) {
-  stop("Pandoc is not found. Please install Pandoc or update the path.")
-}
-
-# Dynamically set the Python environment
-tryCatch({
-  use_virtualenv("/Users/Adam/.virtualenvs/r-reticulate", required = TRUE)
-  cat("Python environment set successfully.\n")
-}, error = function(e) {
-  cat("Error setting Python environment:", e$message, "\n")
-  stop("Failed to set Python environment.")
-})
-
-# Validate Python environment
-tryCatch({
-  py_config()
-  py_run_string("import numpy")  # Check for numpy availability
-  cat("Python environment and numpy are correctly configured.\n")
-}, error = function(e) {
-  cat("Error in Python environment configuration or numpy check:", e$message, "\n")
-  stop("Failed to validate Python environment.")
-})
-
-# Configure knitr chunks to ensure Python code is executed correctly
-knitr::opts_chunk$set(
-  eval = TRUE,    # Execute the code chunks
-  echo = TRUE,    # Display the code chunks in the final output
-  message = FALSE,  # Suppress messages from being shown
-  warning = FALSE,  # Suppress warnings from being shown
-  results = 'markup',  # Ensure output is handled properly
-  engine = "python"  # Use Python engine for relevant chunks
-)
-
-cat("Setup chunk complete.\n")
-```
 
 :::::::::::::::::::::::::::::::::::::: questions
 
@@ -130,7 +89,8 @@ However, it is good practice to write each item on its own line and use indentat
 
 We can therefore implement the diagram displayed in [Figure](#assArr) in Python as follows:
 
-```{python}
+
+``` python
 protein_kinases = {
   'PKA': 'Involved in regulation of glycogen, sugar, and lipid metabolism.',
   'PKC': 'Regulates signal transduction pathways such as the Wnt pathway.',
@@ -138,8 +98,18 @@ protein_kinases = {
   }
 
 print(protein_kinases)
+```
 
+``` output
+{'PKA': 'Involved in regulation of glycogen, sugar, and lipid metabolism.', 'PKC': 'Regulates signal transduction pathways such as the Wnt pathway.', 'CK1': 'Controls the function of other proteins through phosphorylation.'}
+```
+
+``` python
 print(type(protein_kinases))
+```
+
+``` output
+<class 'dict'>
 ```
 
 
@@ -157,13 +127,18 @@ Construct a dictionary for these proteins and the number amino acids within each
 
 ## ANSWER {#diy:firstDictExample}
 
-```{python}
+
+``` python
 proteins = {
   'Axin-1': 862,
   'Rhodopsin': 348
   }
 
 print(proteins)
+```
+
+``` output
+{'Axin-1': 862, 'Rhodopsin': 348}
 ```
 
 :::::::::::::::::
@@ -176,12 +151,22 @@ Now that we have created a dictionary; we can test whether or not a specific *ke
 
 
 
-```{python}
+
+``` python
 'CK1' in protein_kinases
 ```
 
-```{python}
+``` output
+True
+```
+
+
+``` python
 'GSK3' in protein_kinases
+```
+
+``` output
+False
 ```
 
 :::::::::::::::::::::::::::::: challenge
@@ -194,8 +179,13 @@ Using the dictionary you created in [Practice Exercise 1](#diy:firstDictExample)
 ::::::::::::::::: solution
 
 ## ANSWER
-```{python}
+
+``` python
 print('ERK' in proteins)
+```
+
+``` output
+False
 ```
 
 :::::::::::::::::
@@ -209,16 +199,32 @@ In arrays, specifically in ```list``` and ```tuple```, we routinely use [indexin
 
 As a result, we can retrieve the *values* of a dictionary using their respective *keys* as follows:
 
-```{python}
+
+``` python
 print(protein_kinases['CK1'])
+```
+
+``` output
+Controls the function of other proteins through phosphorylation.
 ```
 
 However, if we attempt to retrieve the *value* for a *key* that does not exist in our ```dict```, a ```KeyError``` will be raised:
 
-```{python}
-'GSK3' in protein_kinases
 
+``` python
+'GSK3' in protein_kinases
+```
+
+``` output
+False
+```
+
+``` python
 print(protein_kinases['GSK3'])
+```
+
+``` output
+KeyError: 'GSK3'
 ```
 
 :::::::::::::::::::::::::::::: challenge
@@ -238,7 +244,8 @@ Using the dictionary you implemented, retrieve and display the *gene* associated
 ::::::::::::::::: solution
 
 ## ANSWER
-```{python}
+
+``` python
 cystic_fibrosis = {
   'full name': 'Cystic fibrosis transmembrane conductance regulator',
   'gene': 'CFTR',
@@ -246,6 +253,10 @@ cystic_fibrosis = {
   }
 
 print(cystic_fibrosis['gene'])
+```
+
+``` output
+CFTR
 ```
 :::::::::::::::::
 
@@ -263,15 +274,21 @@ If we attempt to construct a ```dict``` using a mutable value as *key*, a ```Typ
 
 For instance, ```list``` is a mutable type and therefore cannot be used as a *key*:
 
-```{python}
+
+``` python
 test_dict = {
   ['a', 'b']: 'some value'
   }
 ```
 
+``` output
+TypeError: unhashable type: 'list'
+```
+
 But we can use any immutable type as a *key*:
 
-```{python}
+
+``` python
 test_dict = {
   'ab': 'some value'
   }
@@ -279,7 +296,12 @@ test_dict = {
 print(test_dict)
 ```
 
-```{python}
+``` output
+{'ab': 'some value'}
+```
+
+
+``` python
 test_dict = {
   ('a', 'b'): 'some value'
   }
@@ -287,11 +309,16 @@ test_dict = {
 print(test_dict)
 ```
 
+``` output
+{('a', 'b'): 'some value'}
+```
+
 If we define a *key* more than once, the Python interpreter constructs the entry in ```dict``` using the last defined instance of that key.
 
 In the following example, we repeat the *key* <span style="color: rgb(32, 121, 77);">'pathway'</span> twice; and as expected, the interpreter only uses the last instance, which in this case represents the value <span style="color: rgb(32, 121, 77);">'Canonical'</span>:
 
-```{python}
+
+``` python
 signal = {
   'name': 'Wnt',
   'pathway': 'Non-Canonical',  # first instance
@@ -301,12 +328,17 @@ signal = {
 print(signal)
 ```
 
+``` output
+{'name': 'Wnt', 'pathway': 'Canonical'}
+```
+
 ### **Mutability**
 Like lists, dictionaries are mutable. This means that we can alter the contents of a dictionary, after it has been instantiated. We can make any alterations to a dictionary as long as we use *immutable* values for the *keys*.
 
 Suppose we have a dictionary stored in a variable called ```protein```, holding some information about a specific protein:
 
-```{python}
+
+``` python
 protein = {
   'full name': 'Cystic fibrosis transmembrane conductance regulator',
   'alias': 'CFTR',
@@ -318,7 +350,8 @@ protein = {
 
 We can add new *items* to our dictionary or alter the existing ones:
 
-```{python, results='hold'}
+
+``` python
 # Adding a new item:
 protein['chromosome'] = 7
 
@@ -327,16 +360,31 @@ print(protein)
 print(protein['chromosome'])
 ```
 
+``` output
+{'full name': 'Cystic fibrosis transmembrane conductance regulator', 'alias': 'CFTR', 'gene': 'CFTR', 'type': 'Membrane Protein', 'common mutations': ['Delta-F508', 'G542X', 'G551D', 'N1303K'], 'chromosome': 7}
+7
+```
+
 
 We can also alter an existing *value* in a dictionary using its *key*. To do so, we simply access the *value* using its *key*, and treat it as a normal variable; the same way we would treat members of a ```list```:
 
-```{python}
+
+``` python
 print(protein['common mutations'])
 ```
 
-```{python}
+``` output
+['Delta-F508', 'G542X', 'G551D', 'N1303K']
+```
+
+
+``` python
 protein['common mutations'].append('W1282X')
 print(protein)
+```
+
+``` output
+{'full name': 'Cystic fibrosis transmembrane conductance regulator', 'alias': 'CFTR', 'gene': 'CFTR', 'type': 'Membrane Protein', 'common mutations': ['Delta-F508', 'G542X', 'G551D', 'N1303K', 'W1282X'], 'chromosome': 7}
 ```
 
 :::::::::::::::::::::::::::::: challenge
@@ -360,13 +408,18 @@ Display the altered dictionary as the final result.
 ::::::::::::::::: solution
 
 ## ANSWER
-```{python}
+
+``` python
 signal = {'name': 'Wnt', 'pathway': 'Non-Canonical'}
 
 signal['pathway'] = 'Canonical'
 signal['receptors'] = ('Frizzled', 'LRP')
 
 print(signal)
+```
+
+``` output
+{'name': 'Wnt', 'pathway': 'Canonical', 'receptors': ('Frizzled', 'LRP')}
 ```
 :::::::::::::::::
 
@@ -380,7 +433,8 @@ Displaying an entire dictionary using the <kbd>print()</kbd> function can look a
 
 Because a dictionary’s *keys* are immutable, they cannot be altered. However, we can get around this limitation in the following manner. It is possible to introduce a new *key* and assigning the *values* of the old *key* to this new key. Once we have done this, we can go ahead and *remove* the old *item*. The easiest way to remove an *item* from a dictionary is to use the syntax <kbd>del</kbd>:
 
-```{python}
+
+``` python
 # Creating a new key and assigning to it the
 # values of the old key:
 protein['human chromosome'] = protein['chromosome']
@@ -388,20 +442,34 @@ protein['human chromosome'] = protein['chromosome']
 print(protein)
 ```
 
-```{python}
+``` output
+{'full name': 'Cystic fibrosis transmembrane conductance regulator', 'alias': 'CFTR', 'gene': 'CFTR', 'type': 'Membrane Protein', 'common mutations': ['Delta-F508', 'G542X', 'G551D', 'N1303K', 'W1282X'], 'chromosome': 7, 'human chromosome': 7}
+```
+
+
+``` python
 # Now we remove the old item from the dictionary:
 del protein['chromosome']
 
 print(protein)
 ```
 
+``` output
+{'full name': 'Cystic fibrosis transmembrane conductance regulator', 'alias': 'CFTR', 'gene': 'CFTR', 'type': 'Membrane Protein', 'common mutations': ['Delta-F508', 'G542X', 'G551D', 'N1303K', 'W1282X'], 'human chromosome': 7}
+```
+
 
 We can simplify the above operation using the <kbd>.pop()</kbd> method, which removes the specified *key* from a dictionary and returns any *values* associated with it:
 
-```{python}
+
+``` python
 protein['common mutations in caucasians'] = protein.pop('common mutations')
 
 print(protein)
+```
+
+``` output
+{'full name': 'Cystic fibrosis transmembrane conductance regulator', 'alias': 'CFTR', 'gene': 'CFTR', 'type': 'Membrane Protein', 'human chromosome': 7, 'common mutations in caucasians': ['Delta-F508', 'G542X', 'G551D', 'N1303K', 'W1282X']}
 ```
 
 ::::::::::::::::::::::::::::::: challenge
@@ -410,7 +478,8 @@ print(protein)
 
 Implement a dictionary as:
 
-```{python}
+
+``` python
 signal = {'name': 'Beta-Galactosidase', 'pdb': '4V40'}
 ```
 
@@ -434,7 +503,8 @@ Failed to alter the dictionary.
 ::::::::::::::::: solution
 
 ## ANSWER
-```{python, results='hold'}
+
+``` python
 signal = {
 		    'name': 'Beta-Galactosidase',
 		    'pdb': '4V40'
@@ -446,7 +516,10 @@ if 'pdb id' in signal and 'pdb' not in signal:
     print('Contains the new key, but not the old one.')
 else:
     print('Failed to alter the dictionary.')
+```
 
+``` output
+Contains the new key, but not the old one.
 ```
 
 :::::::::::::::::
@@ -458,7 +531,8 @@ As explained earlier, dictionaries are among the most powerful built-in tools in
 
 It is very easy to implement nested dictionaries:
 
-```{python, results='hold'}
+
+``` python
 # Parent dictionary
 pkc_family = {
     # Child dictionary A:
@@ -479,29 +553,59 @@ pkc_family = {
 
 and we follow similar principles to access, alter or remove the *values* stored in nested dictionaries:
 
-```{python}
+
+``` python
 print(pkc_family)
 ```
 
-```{python}
+``` output
+{'conventional': {'note': 'Require DAG, Ca2+, and phospholipid for activation.', 'types': ['alpha', 'beta-1', 'beta-2', 'gamma']}, 'atypical': {'note': 'Require neither Ca2+ nor DAG foractivation (require phosphatidyl serine).', 'types': ['iota', 'zeta']}}
+```
+
+
+``` python
 print(pkc_family['atypical'])
 ```
 
-```{python}
+``` output
+{'note': 'Require neither Ca2+ nor DAG foractivation (require phosphatidyl serine).', 'types': ['iota', 'zeta']}
+```
+
+
+``` python
 print(pkc_family['conventional']['note'])
 ```
 
-```{python}
+``` output
+Require DAG, Ca2+, and phospholipid for activation.
+```
+
+
+``` python
 print(pkc_family['conventional']['types'])
 ```
 
-```{python}
+``` output
+['alpha', 'beta-1', 'beta-2', 'gamma']
+```
+
+
+``` python
 print(pkc_family['conventional']['types'][2])
 ```
 
-```{python}
+``` output
+beta-2
+```
+
+
+``` python
 apkc_types = pkc_family['conventional']['types']
 print(apkc_types[1])
+```
+
+``` output
+beta-1
 ```
 
 
@@ -523,7 +627,8 @@ Using the dictionary, display the *gene* for *Haemophilia A*.
 
 ## ANSWER
 
-```{python, results='hold'}
+
+``` python
 genetic_diseases = {
     'Cystic fibrosis': {
         'name': 'Cystic fibrosis transmembrane conductance regulator',
@@ -544,6 +649,10 @@ genetic_diseases = {
 
 print(genetic_diseases['Haemophilia A']['gene'])
 ```
+
+``` output
+F8
+```
 :::::::::::::::::
 
 :::::::::::::::::::::::::::::::
@@ -554,7 +663,8 @@ We would like to store and analyse the structure of several proteins involved in
 
 Let’s begin by creating an empty dictionary to store our structures:
 
-```{python}
+
+``` python
 structures = dict()
 ```
 
@@ -562,7 +672,8 @@ We then move on to depositing our individual entries to <span style="color: rgb(
 
 Each *item* has a *key* that represents the name of the protein we are depositing, and a *value* that is itself a dictionary consisting of information regarding the structure of that protein:
 
-```{python}
+
+``` python
 structures['Beta-Galactosidase'] = {
     'pdb id': '4V40',
     'deposit date': '1994-07-18',
@@ -576,7 +687,8 @@ structures['Beta-Galactosidase'] = {
 }
 ```
 
-```{python}
+
+``` python
 structures['Lactose Permease'] = {
     'pdb id': '1PV6',
     'deposit date': '2003-06-23',
@@ -595,7 +707,8 @@ Dictionaries don't have to be homogeneous. In other words, each entry can contai
 
 For instance, the <span style="color: rgb(32, 121, 77);">'LacY'</span> protein contains an additional *key* entitled <span style="color: rgb(32, 121, 77);">'note'</span>:
 
-```{python}
+
+``` python
 structures['LacY'] = {
     'pdb id': '2Y5Y',
     'deposit date': '2011-01-19',
@@ -612,33 +725,59 @@ structures['LacY'] = {
 
 The variable <span style="color: rgb(32, 121, 77);">structure</span> which is an instance of type ```dict```, is now a nested dictionary:
 
-```{python}
+
+``` python
 print(structures)
+```
+
+``` output
+{'Beta-Galactosidase': {'pdb id': '4V40', 'deposit date': '1994-07-18', 'organism': 'Escherichia coli', 'method': 'x-ray', 'resolution': 2.5, 'authors': ('Jacobson, R.H.', 'Zhang, X.', 'Dubose, R.F.', 'Matthews, B.W.')}, 'Lactose Permease': {'pdb id': '1PV6', 'deposit date': '2003-06-23', 'organism': 'Escherichia coli', 'method': 'x-ray', 'resolution': 3.5, 'authors': ('Abramson, J.', 'Smirnova, I.', 'Kasho, V.', 'Verner, G.', 'Kaback, H.R.', 'Iwata, S.')}, 'LacY': {'pdb id': '2Y5Y', 'deposit date': '2011-01-19', 'organism': 'Escherichia coli', 'method': 'x-ray', 'resolution': 3.38, 'note': 'in complex with an affinity inactivator', 'authors': ('Chaptal, V.', 'Kwon, S.', 'Sawaya, M.R.', 'Guan, L.', 'Kaback, H.R.', 'Abramson, J.')}}
 ```
 
 We know that we can extract information from our nested ```dict``` just like we would with any other ```dict```:
 
-```{python}
+
+``` python
 print(structures['Beta-Galactosidase'])
 ```
 
-```{python}
+``` output
+{'pdb id': '4V40', 'deposit date': '1994-07-18', 'organism': 'Escherichia coli', 'method': 'x-ray', 'resolution': 2.5, 'authors': ('Jacobson, R.H.', 'Zhang, X.', 'Dubose, R.F.', 'Matthews, B.W.')}
+```
+
+
+``` python
 print(structures['Beta-Galactosidase']['method'])
 ```
 
-```{python}
+``` output
+x-ray
+```
+
+
+``` python
 print(structures['Beta-Galactosidase']['authors'])
 ```
 
-```{python}
+``` output
+('Jacobson, R.H.', 'Zhang, X.', 'Dubose, R.F.', 'Matthews, B.W.')
+```
+
+
+``` python
 print(structures['Beta-Galactosidase']['authors'][0])
+```
+
+``` output
+Jacobson, R.H.
 ```
 
 Sometimes, particularly when creating longer dictionaries, it might be easier to store individual entries in a variable beforehand and add them to the parent dictionary later on.
 
 Note that our parent dictionary in this case is represented by the variable `structures`
 
-```{python}
+
+``` python
 entry = {
     'Lac Repressor': {
         'pdb id': '1LBI',
@@ -656,27 +795,43 @@ entry = {
 
 We can then use the <kbd>.update()</kbd> method to update our <span style="color: rgb(32, 121, 77);">structures</span> dictionary:
 
-```{python}
+
+``` python
 structures.update(entry)
 
 print(structures['Lac Repressor'])
 ```
 
+``` output
+{'pdb id': '1LBI', 'deposit date': '1996-02-17', 'organism': 'Escherichia coli', 'method': 'x-ray', 'resolution': 2.7, 'authors': ('Lewis, M.', 'Chang, G.', 'Horton, N.C.', 'Kercher, M.A.', 'Pace, H.C.', 'Lu, P.')}
+```
+
 Sometimes, we need to see what *keys* our dictionary contains. In order to obtain an array of *keys*, we use the method <kbd>.keys()</kbd> as follows:
 
-```{python}
+
+``` python
 print(structures.keys())
+```
+
+``` output
+dict_keys(['Beta-Galactosidase', 'Lactose Permease', 'LacY', 'Lac Repressor'])
 ```
 
 Likewise, we can also obtain an array of *values* in a dictionary using the <kbd>.values()</kbd> method:
 
-```{python}
+
+``` python
 print(structures['LacY'].values())
+```
+
+``` output
+dict_values(['2Y5Y', '2011-01-19', 'Escherichia coli', 'x-ray', 3.38, 'in complex with an affinity inactivator', ('Chaptal, V.', 'Kwon, S.', 'Sawaya, M.R.', 'Guan, L.', 'Kaback, H.R.', 'Abramson, J.')])
 ```
 
 We can then extract specific information to conduct an analysis. Note that the <kbd>len()</kbd> function in this context returns the number of *keys* in the parent dictionary only.
 
-```{python, results='hold'}
+
+``` python
 sum_resolutions = 0
 res = 'resolution'
 
@@ -692,6 +847,10 @@ average_resolution = sum_resolutions / total_entries
 print(average_resolution)
 ```
 
+``` output
+3.0199999999999996
+```
+
 :::::::::::::::::::::::::::::::
 
 ### **Useful methods for dictionary** {#subsec:dict:usefulMethods}
@@ -699,7 +858,8 @@ Next, we can demonstrate some of the useful *methods* that are associated with `
 
 Given a dictionary as:
 
-```{python}
+
+``` python
 lac_repressor = {
 	    'pdb id': '1LBI',
 	    'deposit date': '1996-02-17',
@@ -711,16 +871,30 @@ lac_repressor = {
 
 We can create an array of all *items* in the dictionary using the <kbd>.items()</kbd> method:
 
-```{python}
+
+``` python
 print(lac_repressor.items())
+```
+
+``` output
+dict_items([('pdb id', '1LBI'), ('deposit date', '1996-02-17'), ('organism', 'Escherichia coli'), ('method', 'x-ray'), ('resolution', 2.7)])
 ```
 
 
 Similar to the <kbd>enumerate()</kbd> function, the <kbd>.items()</kbd> method also returns an array of ```tuple``` members. Each ```tuple``` itself consists of two members, and is structured as (<span style="color: rgb(32, 121, 77);">'key'</span>: <span style="color: rgb(32, 121, 77);">'value'</span>). On that account, we can use its output in the context of a ```for```--loop as follows:
 
-```{python}
+
+``` python
 for key, value in lac_repressor.items():
     print(key, value, sep=': ')
+```
+
+``` output
+pdb id: 1LBI
+deposit date: 1996-02-17
+organism: Escherichia coli
+method: x-ray
+resolution: 2.7
 ```
 
 
@@ -735,7 +909,8 @@ Try <kbd>.items()</kbd> on a nested ```dict```, and see how it works.
 
 ## ANSWER
 
-```{python}
+
+``` python
 nested_dict = {
     'L1-a': {
         'L2-Ka': 'L2_Va',
@@ -750,22 +925,41 @@ nested_dict = {
 
 print(nested_dict.items())
 ```
+
+``` output
+dict_items([('L1-a', {'L2-Ka': 'L2_Va', 'L2-Kb': 'L2_Vb'}), ('L1-b', {'L2-Kc': 'L2_Vc', 'L2-Kd': 'L3_Vd'}), ('L3-c', 'L3_V')])
+```
 :::::::::::::::::
 
 :::::::::::::::::::::::::::::::
 
 We learned earlier that if we try to retrieve  a *key* that is not in the ```dict```, a ```KeyError``` will be raised. If we anticipate this, we can handle it using the <kbd>.get()</kbd> method. The method takes in the *key* and searches the dictionary to find it. If found, the associated *value* is returned. Otherwise, the method returns ```None``` by default. We can also pass a second value to <kbd>.get()</kbd> to replace ```None``` in cases that the requested *key* does not exist:
 
-```{python}
+
+``` python
 print(lac_repressor['gene'])
 ```
 
-```{python}
+``` output
+KeyError: 'gene'
+```
+
+
+``` python
 print(lac_repressor.get('gene'))
 ```
 
-```{python}
+``` output
+None
+```
+
+
+``` python
 print(lac_repressor.get('gene', 'Not found...'))
+```
+
+``` output
+Not found...
 ```
 
 ::::::::::::::::::::::::::::::: challenge
@@ -790,7 +984,8 @@ authors: XXX
 ::::::::::::::::: solution
 
 ## ANSWER
-```{python}
+
+``` python
 lac_repressor = {
     'pdb id': '1LBI',
     'deposit date': '1996-02-17',
@@ -805,6 +1000,13 @@ for key in requested_keys:
     print(f"{key}: {lac_repressor.get(key, 'No entry')}")
 ```
 
+``` output
+organism: Escherichia coli
+authors: No entry
+subunits: No entry
+method: x-ray
+```
+
 :::::::::::::::::
 
 :::::::::::::::::::::::::::::::
@@ -815,7 +1017,8 @@ One of the most useful tools that we can create using nothing more than a ```for
 
 Here, we are essentially iterating through a sequence of DNA nucleotides (<span style="color: rgb(32, 121, 77);">sequence</span>), extracting one character per loop cycle from our string (<span style="color: rgb(32, 121, 77);">nucleotide</span>). We then use that character as a *key* to retrieve its corresponding *value* from our dictionary (<span style="color: rgb(32, 121, 77);">dna2rna</span>). Once we get the *value*, we add it to the variable that we initialised using an empty string outside the scope of our ```for```-loop (<span style="color: rgb(32, 121, 77);">rna_sequence</span>) as discussed [here](#subsubsec:mathematicalOperations:nonNumerics). At the end of the process, the variable <span style="color: rgb(32, 121, 77);">rna_sequence</span> will contain a converted version of our sequence.
 
-```{python, results='hold'}
+
+``` python
 sequence = 'CCCATCTTAAGACTTCACAAGACTTGTGAAATCAGACCACTGCTCAATGCGGAACGCCCG'
 
 dna2rna = {"A": "U", "T": "A", "C": "G", "G": "C"}
@@ -827,6 +1030,11 @@ for nucleotide in sequence:
 
 print('DNA:', sequence)
 print('RNA:', rna_sequence)
+```
+
+``` output
+DNA: CCCATCTTAAGACTTCACAAGACTTGTGAAATCAGACCACTGCTCAATGCGGAACGCCCG
+RNA: GGGUAGAAUUCUGAAGUGUUCUGAACACUUUAGUCUGGUGACGAGUUACGCCUUGCGGGC
 ```
 
 ::::::::::::::::::::::::::::::: challenge
@@ -846,7 +1054,8 @@ with this in mind:
 
 2. Using the appropriate dictionary, convert the following mRNA (exon) sequence for human G protein-coupled receptor to its cDNA.
 
-```{python}
+
+``` python
 human_gpcr = (
     'AUGGAUGUGACUUCCCAAGCCCGGGGCGUGGGCCUGGAGAUGUACCCAGGCACCGCGCAGCCUGCGGCCCCCAACACCACCUC'
     'CCCCGAGCUCAACCUGUCCCACCCGCUCCUGGGCACCGCCCUGGCCAAUGGGACAGGUGAGCUCUCGGAGCACCAGCAGUACG'
@@ -870,7 +1079,8 @@ human_gpcr = (
 
 ## Q1
 
-```{python}
+
+``` python
 mrna2cdna = {
     'U': 'A',
     'A': 'T',
@@ -888,12 +1098,17 @@ cdna2dna = {
 
 ## Q2
 
-```{python}
+
+``` python
 cdna = str()
 for nucleotide in human_gpcr:
     cdna += mrna2cdna[nucleotide]
 
 print(cdna)
+```
+
+``` output
+TACCTACACTGAAGGGTTCGGGCCCCGCACCCGGACCTCTACATGGGTCCGTGGCGCGTCGGACGCCGGGGGTTGTGGTGGAGGGGGCTCGAGTTGGACAGGGTGGGCGAGGACCCGTGGCGGGACCGGTTACCCTGTCCACTCGAGAGCCTCGTGGTCGTCATGCACTAGCCGGACAAGGAGAGCACGGAGATGTGGTAGAAGGAGAAGGGGTAGCCGAAACACCCGTTGTAGGACTAGGACCACCACTTGTAGTCGAAGGCGCTCTTCTACTGGTAGGGGCTGGACATGAAGTAGTTGGACCGCCACCGCCTGGAGTAGGACCACCGGCTGAGGGAGTAACTCCACAAGTTGGACGTGCTCGCCATGATGCTGTAGCGGCAGGACACGTGGAAGTACAGCGAGAAGGACGTCCAGTTGTACATGTCGTCGCAGAAGAAGGAGTGGACCTACTCGAAGCTGGCGATGTAGCGGGACCGGTCCCGGTACGCGACGTCGGACAAGGCGTGGTTCGTGGTGCGGGCCGACTCGACACCGGAGTAGACCTACCGTAGGCACAGTCGGTGCGACCACGGGAAGTGGCGGCACGTGGACGTCGTGTGGCTGCTCCGGACGAAGACAAAGCGCCTACAGGCCCTCCACGTCACCGAGCTCCAGTGCGACCCGAAGTAGCACGGGAAGCGGTAGTAGCCGGACACGATGAGGGAGTAACAGGCCCACGACCAGTCCCGCGTGGCCGTGGCACCCGACGCCGGGGCCGCCGTCTTCCGCGAGGCGTACTAGGAGCGCCACCACGACCAGAAGAAGCAGACGACCGACGGCCTCTTGCAGAAGTAGTCGCACGTGGAGGACGTCGCCTGCGTCGGACCCCGGCGAGGGACGTTCGTCAGAAAGGCGGTACGGGTGGGGGAGTGCCCGGTGTAACAGTTGGAGTGGCGGAAGAGGTTGTCGACGGATTTGGGGGAGTAGATGTCGAAAGAGCCCCTCTGGAAGTCCCTGTTCGACTCCGACATGTAACTCGTCTTTTGTTTAAACGGCCGGGACTTGGCGAAGACAGTGCGACGGGACTTCCGGCAGTAAGGTCTGTCGTGGCTCGTCAGCCTACACTCCAAGTCGTCACGGCAC
 ```
 :::::::::::::::::
 
@@ -927,7 +1142,8 @@ Given a conversion table:
 
 and this <span style="color: rgb(32, 121, 77);">5'</span>- to <span style="color: rgb(32, 121, 77);">3'</span>-end DNA sequence of 717 nucleotides for the [Green Fluorescent Protein (GFP)](https://en.wikipedia.org/wiki/Green_fluorescent_protein) mutant 3 extracted from [Aequorea victoria](https://en.wikipedia.org/wiki/Aequorea_victoria):
 
-```{python}
+
+``` python
 dna_sequence = (
     'ATGTCTAAAGGTGAAGAATTATTCACTGGTGTTGTCCCAATTTTGGTTGAATTAGATGGTGATGTTAATGGT'
     'CACAAATTTTCTGTCTCCGGTGAAGGTGAAGGTGATGCTACTTACGGTAAATTGACCTTAAAATTTATTTGT'
@@ -948,7 +1164,8 @@ Use the DNA sequence and the conversion table to:
 
 2. Use the following dictionary in a Python code to obtain the translation (protein sequence) of the Green Fluorescent Protein using the mRNA sequence you obtained.
 
-```{python}
+
+``` python
 codon2aa = {
     "UUU": "F", "UUC": "F", "UUA": "L", "UUG": "L", "CUU": "L",
     "CUC": "L", "CUA": "L", "CUG": "L", "AUU": "I", "AUC": "I",
