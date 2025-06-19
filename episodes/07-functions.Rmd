@@ -46,7 +46,7 @@ knitr::opts_chunk$set(
   echo = TRUE,    # Display the code chunks in the final output
   message = FALSE,  # Suppress messages from being shown
   warning = FALSE,  # Suppress warnings from being shown
-  results = 'markup',  # Ensure output is handled properly
+  results = 'asis',  # Ensure output is handled properly
   engine = "python"  # Use Python engine for relevant chunks
 )
 
@@ -67,7 +67,7 @@ cat("Setup chunk complete.\n")
 ::::::::::::::::::::::::::::::::::::: objectives
 
 - Understand how to develop and utilise functions.
-- Learn different ways of creating functions.
+- Understanding different ways of creating functions.
 - Explaining input arguments.
 - Understanding the interconnectivity of functions.
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -135,7 +135,7 @@ There are several points to remember relative to functions:
 </p>
 
 <p style='text-align: justify;'>
-- If we do not specify a return value, or fail to terminate a function using <kbd>return</kbd> altogether, the Python interpreter will automatically terminate that function with an implicit `return None`. Being an *implicit* process, this is generally regarded as a bad practice and should be avoided.
+- If we do not specify a return value, or fail to terminate a function using <kbd>return</kbd> altogether, the Python interpreter will automatically terminate that function with an implicit ```return None```. Being an *implicit* process, this is generally regarded as a bad practice and should be avoided.
 </p>
 
 ::::::::::::::::::::::::::::::::::::
@@ -301,9 +301,6 @@ def find_tata(seq):
     tata_box = 'TATA'
     result = seq.find(tata_box)
 
-    if result == -1: # If nothing is found, .find() returns -1.
-        return None
-
     return result
 ```
 :::::::::::::::::
@@ -406,7 +403,7 @@ def find_tata(seq):
 
 :::::::::::::::::::::::::::::::
 
-### Optional Arguments
+### Optional arguments
 
 <p style='text-align: justify;'>
 We already know that most functions accept one or more input arguments. Sometimes a function does not need all of the arguments in order to perform a specific task.
@@ -512,7 +509,7 @@ def find_tata(seq, upper=False):
     :param seq: Polynucleotide sequence.
     :type seq: str
     :param upper: Whether or not to
-     convert the sequence to
+     homogenise the sequence
      to upper-case characters.
     :type upper: bool
     :return: Start of the TATA-box.
@@ -557,7 +554,7 @@ def prepare_seq(seq, name, upper=False):
     :type name: str
     :param upper: Convert sequence to uppercase characters (default: False)
     :type upper: bool
-    :return: Formatted string containing the sequence.
+    :return: Formated string containing the sequence.
     :rtype: str
     """
     template = 'The sequence of {} is: {}'
@@ -595,7 +592,7 @@ prepped = prepare_seq(sequence, 'DNA', upper=True)
 print(prepped)
 ```
 
-### **Interconnectivity of Functions**
+### **Interconnectivity of functions**
 Functions can also call other functions. This is what makes them extremely powerful tools that may be utilised to address an unlimited number of problems.
 
 This allows us to devise a network of functions that can all call each other to perform different tasks at different times. This network of functions can then collectively contribute to the production of a single, final answer.
@@ -765,17 +762,19 @@ def count_values(arr):
 ## Exercises
 :::::::::::::::::::::::::::::::::::::::: challenge
 
-#### End-of-Chapter Exercises
+#### End of chapter Exercises
 
 Write a function with the following features:
 
-- Call the function <kbd>get_basic_stats()</kbd> and let it take one input argument which, however, may contain any number of input arrays, *e.g.* a tuple of arrays.
 
-- Using a for loop, for each of the arrays calculate the mean and the variance using the functions 'mean' and 'variance' given above, *i.e.* call those functions from within the function <kbd>get_basic_stats()</kbd>.
+- Call the function <kbd>get_basic_stats()</kbd> and let it take one input argument which may contain any number of input arrays, *e.g.* a tuple of arrays.
 
-- Calculate the standard deviation for each array as the square root of the variance. You will have to import the function `sqrt` from module `math`.
+- Using a for loop, for each of the arrays calculate the mean and the variance for each of the arrays using the functions 'mean' and 'variance', given above, *i.e.* call these functions from within the function <kbd>get_basic_stats()</kbd>.
 
-- Return a single array containing (in that order) the mean, the variance, and the standard deviation for each array.
+- Calculate the standard deviation for each array as the square root of the variance. You will have to import the function ```sqrt``` from module ```math```.
+
+- Return a single array containing (in that order) the mean, the variance and the standard deviation for each array.
+
 
 To test the function, combine three arrays in a tuple as follows:
 
@@ -787,7 +786,7 @@ my_arrays = (
 )
 ```
 
-Call the function <kbd>get_basic_stats()</kbd> with this tuple as an argument and write the output to a variable. Display the results in the following form:
+Call the function <kbd>get_basic_stats()</kbd> with this tuple as an argument, and write the output to a variable. Display the results in the following form:
 
 ```
 STD of array' index, ':' STD
@@ -796,8 +795,8 @@ STD of array' index, ':' STD
 The result for the above arrays should be:
 
 ```
-STD of array 0 :  1.4142135623730951  
-STD of array 1 :  0.0  
+STD of array 0 :  1.4142135623730951
+STD of array 1 :  0.0
 STD of array 2 :  0.14357537702854514
 ```
 
