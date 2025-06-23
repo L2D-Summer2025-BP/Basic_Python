@@ -1892,7 +1892,7 @@ print("Type:", type(table_rev))
 ```
 
 ``` output
-Result: <list_reverseiterator object at 0x116d14d60>
+Result: <list_reverseiterator object at 0x121517790>
 Type: <class 'list_reverseiterator'>
 ```
 
@@ -2801,7 +2801,7 @@ print(unique_samples)
 ```
 
 ``` output
-{'sampleC', 'sample3', 'sample1', 'sample2'}
+{'sample3', 'sample2', 'sample1', 'sampleC'}
 ```
 
 Let's create a set from a list, as follows:
@@ -2814,7 +2814,7 @@ print(unique_samples)
 ```
 
 ``` output
-{1, 2, 5, '1'}
+{1, 2, '1', 5}
 ```
 
 ``` python
@@ -2867,7 +2867,7 @@ print("After adding geneD:", gene_set)
 ```
 
 ``` output
-After adding geneD: {'geneD', 'geneB', 'geneC', 'geneA'}
+After adding geneD: {'geneB', 'geneD', 'geneA', 'geneC'}
 ```
 
 If you attempt to add a duplicate, this will be ignored:
@@ -2879,7 +2879,7 @@ print("After attempting to add geneA again:", gene_set)
 ```
 
 ``` output
-After attempting to add geneA again: {'geneD', 'geneB', 'geneC', 'geneA'}
+After attempting to add geneA again: {'geneB', 'geneD', 'geneA', 'geneC'}
 ```
 
 
@@ -2914,7 +2914,7 @@ print("All genes found:", all_found_genes)
 ```
 
 ``` output
-All genes found: {'TP53', 'KRAS', 'VEGFA', 'MAPK1', 'BRCA1', 'MYC', 'AKT1'}
+All genes found: {'MAPK1', 'MYC', 'VEGFA', 'KRAS', 'AKT1', 'TP53', 'BRCA1'}
 ```
 
 Intersection - genes found in both experiments:
@@ -2925,7 +2925,7 @@ print("Common genes:", common_genes)
 ```
 
 ``` output
-Common genes: {'TP53', 'KRAS', 'MYC'}
+Common genes: {'KRAS', 'TP53', 'MYC'}
 ```
 
 Symmetric difference - genes found in only one of the experiments:
@@ -2936,7 +2936,7 @@ print("Genes found exclusively in one experiment:", exclusive_genes)
 ```
 
 ``` output
-Genes found exclusively in one experiment: {'VEGFA', 'MAPK1', 'BRCA1', 'AKT1'}
+Genes found exclusively in one experiment: {'MAPK1', 'AKT1', 'VEGFA', 'BRCA1'}
 ```
 
 Difference - genes unique to the first experiment:
